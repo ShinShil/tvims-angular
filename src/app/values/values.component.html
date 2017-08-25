@@ -1,0 +1,93 @@
+<div *ngIf="values; else notLoadedBlock">
+  <md-expansion-panel>
+    <md-expansion-panel-header>
+      <div fxLayout style="width: 80%">
+        <span style="width: 80%">Математическое ожидание</span>
+        <span>{{values.mathOjidanie}}</span>
+      </div>
+    </md-expansion-panel-header>
+    <p>
+      Математическое ожидание - характеризует среднее значение случайно величины и определяется по формулам...
+    </p>
+  </md-expansion-panel>
+  <md-expansion-panel>
+    <md-expansion-panel-header>
+      <div fxLayout style="width: 80%">
+        <span style="width: 80%">Дисперсия</span>
+        <span>{{values.dispersiya}}</span>
+      </div>
+    </md-expansion-panel-header>
+    <p>
+      Математическое ожидание - характеризует среднее значение случайно величины и определяется по формулам...
+    </p>
+  </md-expansion-panel>
+  <md-expansion-panel>
+    <md-expansion-panel-header>
+      <div fxLayout style="width: 80%">
+        <span style="width: 80%">Мода</span>
+        <span>{{values.moda}}</span>
+      </div>
+    </md-expansion-panel-header>
+    <p>
+      Математическое ожидание - характеризует среднее значение случайно величины и определяется по формулам...
+    </p>
+  </md-expansion-panel>
+  <md-expansion-panel>
+    <md-expansion-panel-header>
+      <div fxLayout style="width: 80%">
+        <span style="width: 80%">Медина</span>
+        <span>Не реализовано</span>
+      </div>
+    </md-expansion-panel-header>
+    <p>
+      Математическое ожидание - характеризует среднее значение случайно величины и определяется по формулам...
+    </p>
+  </md-expansion-panel>
+  <md-expansion-panel>
+    <md-expansion-panel-header>
+      <div fxLayout style="width: 80%">
+        <span style="width: 80%">Размах</span>
+        <span>{{values.razmah}}</span>
+      </div>
+    </md-expansion-panel-header>
+    <p>
+      Математическое ожидание - характеризует среднее значение случайно величины и определяется по формулам...
+    </p>
+  </md-expansion-panel>
+  <md-expansion-panel>
+    <md-expansion-panel-header>
+      <div fxLayout style="width: 80%">
+        <span style="width: 80%">Среднее квадратичное отклонение(СКО)</span>
+        <span>{{values.sko}}</span>
+      </div>
+    </md-expansion-panel-header>
+    <p>
+      Математическое ожидание - характеризует среднее значение случайно величины и определяется по формулам...
+    </p>
+  </md-expansion-panel>
+  <md-expansion-panel>
+    <md-expansion-panel-header>
+      <div fxLayout style="width: 80%">
+        <span style="width: 80%">Ассиметрия</span>
+        <span>{{values.assimetiya}}</span>
+      </div>
+    </md-expansion-panel-header>
+    <p>
+      Математическое ожидание - характеризует среднее значение случайно величины и определяется по формулам...
+    </p>
+  </md-expansion-panel>
+  <md-expansion-panel>
+    <md-expansion-panel-header>
+      <div fxLayout style="width: 80%">
+        <span style="width: 80%">Эксцесс</span>
+        <span>{{values.excess}}</span>
+      </div>
+    </md-expansion-panel-header>
+    <p>
+      Математическое ожидание - характеризует среднее значение случайно величины и определяется по формулам...
+    </p>
+  </md-expansion-panel>
+</div>
+<ng-template #notLoadedBlock>
+  <span>Loading...</span>
+</ng-template>

@@ -1,28 +1,33 @@
 <md-toolbar color="primary">
-  <span>ТВИМС</span>
+  <h4>ТВИМС</h4>
+  <button style="margin-left: 20px" md-button (click)="sidenav.toggle(); showTableClick()">
+    <span *ngIf="!showTable">Показать таблицу</span>
+    <span *ngIf="showTable">Спрятать таблицу</span>
+  </button>
 </md-toolbar>
+<md-sidenav-container>
+<md-sidenav #sidenav mode="side" style="width: 100%; text-align: center;" [opened]="showTable">
+  <app-table-numbers [tableNumbers]="tableNumbers"></app-table-numbers>
+</md-sidenav>
+<md-expansion-panel [expanded]="true">
+  <md-expansion-panel-header>
+    <span style="font-weight: bold">Входные данные</span>
+  </md-expansion-panel-header>
+  <div *ngIf="!showTable">
+    <textarea name="input" style="width: 100%" [(ngModel)]="inputNumbers" id="input" rows="10"></textarea><br>
+    <p><button md-raised-button color="primary" (click)="setNewNumbers()">Рассчитать</button></p>
+  </div>
+</md-expansion-panel>
 <nav md-tab-nav-bar>
-  <a md-tab-link
-    [routerLink]="count"
-    routerLinkActive
-    #rla="routerLinkActive"
-    [active]="rla.isActive">
+  <a md-tab-link routerLink="values" routerLinkActive #rla1="routerLinkActive" [active]="rla1.isActive">
       Математические величины
     </a>
-    <a md-tab-link
-    [routerLink]="count"
-    routerLinkActive
-    #rla="routerLinkActive"
-    [active]="rla.isActive">
+  <a md-tab-link routerLink="graphs" routerLinkActive #rla2="routerLinkActive" [active]="rla2.isActive">
       Графики
     </a>
-    <a md-tab-link
-    [routerLink]="count"
-    routerLinkActive
-    #rla="routerLinkActive"
-    [active]="rla.isActive">
+  <a md-tab-link routerLink="hypothesis" routerLinkActive #rla3="routerLinkActive" [active]="rla3.isActive">
       Доказательства гипотез
     </a>
 </nav>
-
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
+</md-sidenav-container>

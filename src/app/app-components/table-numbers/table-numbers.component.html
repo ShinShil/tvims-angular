@@ -1,0 +1,26 @@
+<table *ngIf="tableNumbers; else notSet">
+  <thead>
+    <tr>
+      <td>Значение I</td>
+      <td>Частота Mi</td>
+      <td>Частость Pi</td>
+      <td>Pi накопленное</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let number of tableNumbers">
+      <td>{{number.val}}</td>
+      <td>{{number.amount}}</td>
+      <td>{{number.p}}</td>
+      <td>{{number.pSumm}}</td>
+    </tr>
+  </tbody>
+</table>
+<ng-template #notSet>
+  <md-list>
+    <md-list-item>1. Спрятать таблицу</md-list-item>
+    <md-list-item>2. Ввести числа</md-list-item>
+    <md-list-item>3. Нажать рассчёт</md-list-item>
+    <md-list-item>4. Показать таблицу</md-list-item>
+  </md-list>
+</ng-template>
