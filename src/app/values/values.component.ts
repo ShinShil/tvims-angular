@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ValuesComponent {
   values: Values;
+  private fractionString = '$frac 12$';
 
   constructor(private tvimsService: TvimsService) {
     this.values = tvimsService.Values;

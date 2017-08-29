@@ -5,13 +5,8 @@ import { Component, Input, OnInit } from '@angular/core';
   templateUrl: './table-numbers.component.html',
   styleUrls: ['./table-numbers.component.scss']
 })
-export class TableNumbersComponent implements OnInit {
+export class TableNumbersComponent {
 
   @Input() tableNumbers: Array<Row> = undefined;
-
-  constructor() { }
-
-  ngOnInit() {
-  }
 
 }

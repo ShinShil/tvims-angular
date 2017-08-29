@@ -6,28 +6,42 @@
   </button>
 </md-toolbar>
 <md-sidenav-container>
-<md-sidenav #sidenav mode="side" style="width: 100%; text-align: center;" [opened]="showTable">
-  <app-table-numbers [tableNumbers]="tableNumbers"></app-table-numbers>
-</md-sidenav>
-<md-expansion-panel [expanded]="true">
-  <md-expansion-panel-header>
-    <span style="font-weight: bold">Входные данные</span>
-  </md-expansion-panel-header>
-  <div *ngIf="!showTable">
-    <textarea name="input" style="width: 100%" [(ngModel)]="inputNumbers" id="input" rows="10"></textarea><br>
-    <p><button md-raised-button color="primary" (click)="setNewNumbers()">Рассчитать</button></p>
-  </div>
-</md-expansion-panel>
-<nav md-tab-nav-bar>
-  <a md-tab-link routerLink="values" routerLinkActive #rla1="routerLinkActive" [active]="rla1.isActive">
+  <md-sidenav #sidenav mode="side" style="width: 100%; text-align: center;" [opened]="showTable">
+    <app-table-numbers *ngIf="ryadType === 'discretnii'" [tableNumbers]="tableNumbers"></app-table-numbers>
+    <app-table-numbers-interval *ngIf="ryadType === 'intervalnii'" [tableNumbers]="tableNumbers"></app-table-numbers-interval>
+  </md-sidenav>
+  <md-expansion-panel [expanded]="true">
+    <md-expansion-panel-header>
+      <span style="font-weight: bold">Входные данные</span>
+    </md-expansion-panel-header>
+    <div *ngIf="!showTable">
+      <textarea name="input" style="width: 100%" [(ngModel)]="inputNumbers" id="input" rows="10"></textarea><br>
+      <p fxLayoutGap="30px">
+        <button md-raised-button color="primary" (click)="setNewNumbers()">Рассчитать</button>
+        <span>
+          <label for="ryadType">Тип ряда: </label>
+          <md-radio-group name="ryadType" [(ngModel)]="ryadType">
+            <md-radio-button value="discretnii">
+              Дискретный
+            </md-radio-button>
+            <md-radio-button value="intervalnii">
+              Интервальный
+            </md-radio-button>
+          </md-radio-group>
+        </span>
+      </p>
+    </div>
+  </md-expansion-panel>
+  <nav md-tab-nav-bar>
+    <a md-tab-link routerLink="values" routerLinkActive #rla1="routerLinkActive" [active]="rla1.isActive">
       Математические величины
     </a>
-  <a md-tab-link routerLink="graphs" routerLinkActive #rla2="routerLinkActive" [active]="rla2.isActive">
+    <a md-tab-link routerLink="graphs" routerLinkActive #rla2="routerLinkActive" [active]="rla2.isActive">
       Графики
     </a>
-  <a md-tab-link routerLink="hypothesis" routerLinkActive #rla3="routerLinkActive" [active]="rla3.isActive">
+    <a md-tab-link routerLink="hypothesis" routerLinkActive #rla3="routerLinkActive" [active]="rla3.isActive">
       Доказательства гипотез
     </a>
-</nav>
+  </nav>
   <router-outlet></router-outlet>
 </md-sidenav-container>

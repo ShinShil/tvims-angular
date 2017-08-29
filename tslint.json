@@ -11,6 +11,9 @@
     ],
     "component-selector": [
       false
+    ],
+    "directive-selector": [
+      false
     ]
   }
 }

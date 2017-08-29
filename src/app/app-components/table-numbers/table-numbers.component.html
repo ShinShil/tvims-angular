@@ -1,18 +1,18 @@
 <table *ngIf="tableNumbers; else notSet">
   <thead>
-    <tr>
-      <td>Значение I</td>
-      <td>Частота Mi</td>
-      <td>Частость Pi</td>
-      <td>Pi накопленное</td>
+    <tr fxLayout>
+      <td fxFlex="25%">Значение I</td>
+      <td fxFlex="25%">Частота Mi</td>
+      <td fxFlex="25%">Частость Pi</td>
+      <td fxFlex="25%">Pi накопленное</td>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let number of tableNumbers">
-      <td>{{number.val}}</td>
-      <td>{{number.amount}}</td>
-      <td>{{number.p}}</td>
-      <td>{{number.pSumm}}</td>
+    <tr fxLayout *ngFor="let number of tableNumbers">
+      <td fxFlex="25%">{{number.val}}</td>
+      <td fxFlex="25%">{{number.amount}}</td>
+      <td fxFlex="25%">{{number.p}}</td>
+      <td fxFlex="25%">{{number.pSumm}}</td>
     </tr>
   </tbody>
 </table>

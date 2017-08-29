@@ -11,16 +11,17 @@ export class TvimsService {
   private graphs: Graphs = undefined;
   private hypothesis: Hypothesis = undefined;
 
-  setNewNumbers(numbers: string): void {
-    const arr = numbers.replace(/\r?\n|\r/g, '').replace(/\s/g, '').split(',').sort();
-    this.setNumbersTable(arr);
-    this.setValues();
-    this.setGraphs();
-    this.setHypothesis();
-    this.newNumbersSet.next();
+  setNewNumbersDiscretniiRyad(numbers: string): void {
+    this.setNumbers(numbers, this.setTableFromDiscretniiRyad);
   }
 
-  get NumbersTable(): Array<Row> {
+  setNewNumbersIntervalniiRyad(numbers: string): void {
+    this.setNumbers(numbers, this.setTableFromIntervalniiRyad);
+  }
+
+  get NumbersTable(): Array<Row | RowInterval> {
+    console.log(this.numbersTable);
+
     return this.numbersTable && this.numbersTable.length !== 0 ? Object.create(this.numbersTable) : undefined;
   }
 
@@ -49,7 +50,41 @@ export class TvimsService {
     this.hypothesis = undefined;
   }
 
-  private setNumbersTable(arr: Array<string>): void {
+  private setNumbers(numbers: string, setter: (arr: Array<string>) => void): void {
+    const arr = numbers.replace(/\r?\n|\r/g, '').replace(/\s/g, '').split(',').sort();
+    setter.bind(this)(arr);
+    this.setValues();
+    this.setGraphs();
+    this.setHypothesis();
+    this.newNumbersSet.next();
+  }
+
+  private setTableFromIntervalniiRyad(sortedArr: Array<string>): void {
+    this.numbersTable = [];
+    const numbers = sortedArr.map(Number);
+    console.log(numbers);
+    const arrayLength = sortedArr.length;
+    const intervalSize = 5;
+    let intervalStart = numbers[0];
+    let intervalEnd = intervalStart + intervalSize;
+    while (intervalEnd <= numbers[numbers.length - 1]) {
+      const numbersInInterval = numbers.filter(n => n >= intervalStart && n < intervalEnd);
+      const middleValue = (intervalStart + intervalEnd) / 2;
+      const p = numbersInInterval.length / arrayLength;
+      this.numbersTable.push({
+        amount: numbersInInterval.length,
+        p,
+        pSumm: p + (this.numbersTable.length ? this.numbersTable[this.numbersTable.length - 1].pSumm : 0),
+        val: middleValue,
+        intervalEnd,
+        intervalStart
+      } as RowInterval);
+      intervalStart = intervalEnd;
+      intervalEnd += intervalSize;
+    }
+  }
+
+  private setTableFromDiscretniiRyad(arr: Array<string>): void {
     this.numbersTable = [];
     const arrayLength = arr.length;
     while (arr.length) {

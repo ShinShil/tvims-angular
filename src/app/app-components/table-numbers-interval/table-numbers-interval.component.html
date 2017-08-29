@@ -1,0 +1,30 @@
+<table *ngIf="tableNumbers; else notSet">
+  <thead>
+    <tr fxLayout>
+      <td fxFlex="16.6%">Начало</td>
+      <td fxFlex="16.6%">Конец</td>
+      <td fxFlex="16.6%">Значение I</td>
+      <td fxFlex="16.6%">Частота Mi</td>
+      <td fxFlex="16.6%">Частость Pi</td>
+      <td fxFlex="16.6%">Pi накопленное</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr fxLayout *ngFor="let number of tableNumbers">
+      <td fxFlex="16.6%">{{number.intervalStart}}</td>
+      <td fxFlex="16.6%">{{number.intervalEnd}}</td>
+      <td fxFlex="16.6%">{{number.val}}</td>
+      <td fxFlex="16.6%">{{number.amount}}</td>
+      <td fxFlex="16.6%">{{number.p}}</td>
+      <td fxFlex="16.6%">{{number.pSumm}}</td>
+    </tr>
+  </tbody>
+</table>
+<ng-template #notSet>
+  <md-list>
+    <md-list-item>1. Спрятать таблицу</md-list-item>
+    <md-list-item>2. Ввести числа</md-list-item>
+    <md-list-item>3. Нажать рассчёт</md-list-item>
+    <md-list-item>4. Показать таблицу</md-list-item>
+  </md-list>
+</ng-template>

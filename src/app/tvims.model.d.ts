@@ -17,6 +17,11 @@ interface Values {
     centr4: number;
 }
 
+interface RowInterval extends Row {
+    intervalStart: number;
+    intervalEnd: number;
+}
+
 interface Graphs {
 
 }
