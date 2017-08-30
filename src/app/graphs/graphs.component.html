@@ -1,2 +1,9 @@
-<h3>Bar Chart</h3>
-<app-bar-chart *ngIf="chartData" [data]="chartData"></app-bar-chart>
+<md-card>
+    <md-chip-list>
+        <md-chip routerLink="gistogram" routerLinkActive #rla="routerLinkActive" selected="rla.isActive"
+        [color]="rla.isActive ? 'accent' : 'primary'">Гистограмма частот</md-chip>
+        <md-chip routerLink="emperic-func" selected="rla.isActive"
+        [color]="!rla.isActive ? 'accent' : 'primary'">Эмпирическая функция</md-chip>
+    </md-chip-list>
+</md-card>
+<router-outlet></router-outlet>

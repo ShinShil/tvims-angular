@@ -10,18 +10,19 @@ export class TvimsService {
   private values: Values = undefined;
   private graphs: Graphs = undefined;
   private hypothesis: Hypothesis = undefined;
+  private mode: 'discretnii' | 'intervalnii';
 
   setNewNumbersDiscretniiRyad(numbers: string): void {
     this.setNumbers(numbers, this.setTableFromDiscretniiRyad);
+    this.mode = 'discretnii';
   }
 
   setNewNumbersIntervalniiRyad(numbers: string): void {
     this.setNumbers(numbers, this.setTableFromIntervalniiRyad);
+    this.mode = 'intervalnii';
   }
 
   get NumbersTable(): Array<Row | RowInterval> {
-    console.log(this.numbersTable);
-
     return this.numbersTable && this.numbersTable.length !== 0 ? Object.create(this.numbersTable) : undefined;
   }
 
@@ -30,7 +31,7 @@ export class TvimsService {
   }
 
   get Graphs(): Graphs {
-    return this.Graphs;
+    return this.graphs ? this.graphs : undefined;
   }
 
   get Hypothesis(): Hypothesis {
@@ -43,7 +44,37 @@ export class TvimsService {
   }
 
   private setGraphs(): void {
-    this.graphs = undefined;
+    this.graphs = {
+      gistogramm: [],
+      empericFunc: []
+    };
+    if (this.mode === 'intervalnii') {
+      for (const n of this.numbersTable) {
+        this.graphs.gistogramm.push({
+          x: n.val,
+          y: n.amount
+        });
+        this.graphs.empericFunc.push({
+          x: n.val,
+          y: n.pSumm
+        });
+      }
+    } else {
+      this.graphs.empericFunc.push({
+        x: (this.numbersTable as Array<RowInterval>)[0].intervalStart,
+        y: 0
+      });
+      for (const n of (this.numbersTable as Array<RowInterval>)) {
+        this.graphs.gistogramm.push({
+          x: n.val,
+          y: n.amount
+        });
+        this.graphs.empericFunc.push({
+          x: n.intervalEnd,
+          y: n.pSumm
+        });
+      }
+    }
   }
 
   private setHypothesis(): void {

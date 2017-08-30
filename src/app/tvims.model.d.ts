@@ -22,8 +22,14 @@ interface RowInterval extends Row {
     intervalEnd: number;
 }
 
-interface Graphs {
+interface Point {
+    x: number;
+    y: number;
+}
 
+interface Graphs {
+    gistogramm: Array<Point>
+    empericFunc: Array<Point>
 }
 
 interface Hypothesis {
