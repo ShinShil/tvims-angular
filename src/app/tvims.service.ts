@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class TvimsService {
 
   newNumbersSet = new Subject<void>();
+  intervalSize = 5;
   private numbersTable: Array<Row> = [];
   private values: Values = undefined;
   private graphs: Graphs = undefined;
@@ -82,7 +83,8 @@ export class TvimsService {
   }
 
   private setNumbers(numbers: string, setter: (arr: Array<string>) => void): void {
-    const arr = numbers.replace(/\r?\n|\r/g, '').replace(/\s/g, '').split(',').sort();
+    const arr = numbers.replace(/\r?\n|\r/g, '').replace(/\s/g, '').split(',').map(Number)
+    .sort((a, b) => a === b ? 0 : a > b ? 1 : -1).map(String);
     setter.bind(this)(arr);
     this.setValues();
     this.setGraphs();
@@ -92,9 +94,10 @@ export class TvimsService {
 
   private setTableFromIntervalniiRyad(sortedArr: Array<string>): void {
     this.numbersTable = [];
+    console.log(sortedArr);
     const numbers = sortedArr.map(Number);
     const arrayLength = sortedArr.length;
-    const intervalSize = 5;
+    const intervalSize = this.intervalSize;
     let intervalStart = numbers[0];
     let intervalEnd = intervalStart + intervalSize;
     while (intervalEnd <= numbers[numbers.length - 1]) {

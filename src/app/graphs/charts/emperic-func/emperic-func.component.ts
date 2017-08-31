@@ -81,7 +81,6 @@ export class EmpericFuncComponent implements OnInit, OnChanges {
     // define X & Y domains
     const xDomain = [this.graphs.empericFunc[0].x, this.graphs.empericFunc[this.graphs.empericFunc.length - 1].x];
     const yDomain = [0, 1.2];
-    console.log(this.graphs.empericFunc[0].x);
     // create scales
     this.xScale = d3.scaleLinear().domain(xDomain).range([0, this.width - 50]);
     this.yScale = d3.scaleLinear().domain(yDomain).range([this.height, 0]);
@@ -124,7 +123,7 @@ export class EmpericFuncComponent implements OnInit, OnChanges {
       .attr('r', d => 3)
       .attr('fill', 'black');
 
-    const updateLinks = this.chart.selectAll('.line')
+    const updateLinks = this.chart.selectAll('line')
       .data(this.links);
     updateLinks.exit().remove();
 

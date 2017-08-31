@@ -27,7 +27,6 @@ export class BarChartComponent implements OnInit, OnChanges {
     this.graphs = this.tvimsService.Graphs;
     this.tvimsService.newNumbersSet.subscribe(numbers => {
       this.graphs = this.tvimsService.Graphs;
-      console.log(this.graphs);
       if (this.width === 0) {
         this.createChart();
       }
@@ -48,7 +47,6 @@ export class BarChartComponent implements OnInit, OnChanges {
   }
 
   createChart(): void {
-    console.log(this.graphs);
     const element = this.chartContainer.nativeElement;
     this.width = element.offsetWidth - this.margin.left - this.margin.right;
     this.height = element.offsetHeight - this.margin.top - this.margin.bottom;
