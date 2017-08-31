@@ -32,6 +32,13 @@ interface Graphs {
     empericFunc: Array<Point>
 }
 
-interface Hypothesis {
+interface HypothesisDiscretnii {
+    val: number;
+    amount: number;
+    newAmount: number;
+    pirson: number;
+}
 
+interface HypothesisInterval extends HypothesisDiscretnii {
+    
 }

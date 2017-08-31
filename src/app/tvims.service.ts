@@ -9,17 +9,17 @@ export class TvimsService {
   private numbersTable: Array<Row> = [];
   private values: Values = undefined;
   private graphs: Graphs = undefined;
-  private hypothesis: Hypothesis = undefined;
+  private hypothesis: HypothesisDiscretnii | HypothesisInterval = undefined;
   private mode: 'discretnii' | 'intervalnii';
 
   setNewNumbersDiscretniiRyad(numbers: string): void {
-    this.setNumbers(numbers, this.setTableFromDiscretniiRyad);
     this.mode = 'discretnii';
+    this.setNumbers(numbers, this.setTableFromDiscretniiRyad);
   }
 
   setNewNumbersIntervalniiRyad(numbers: string): void {
-    this.setNumbers(numbers, this.setTableFromIntervalniiRyad);
     this.mode = 'intervalnii';
+    this.setNumbers(numbers, this.setTableFromIntervalniiRyad);
   }
 
   get NumbersTable(): Array<Row | RowInterval> {
@@ -34,7 +34,7 @@ export class TvimsService {
     return this.graphs ? this.graphs : undefined;
   }
 
-  get Hypothesis(): Hypothesis {
+  get Hypothesis(): HypothesisDiscretnii | HypothesisInterval {
     return this.hypothesis;
   }
 
@@ -48,7 +48,7 @@ export class TvimsService {
       gistogramm: [],
       empericFunc: []
     };
-    if (this.mode === 'intervalnii') {
+    if (this.mode === 'discretnii') {
       for (const n of this.numbersTable) {
         this.graphs.gistogramm.push({
           x: n.val,
@@ -93,7 +93,6 @@ export class TvimsService {
   private setTableFromIntervalniiRyad(sortedArr: Array<string>): void {
     this.numbersTable = [];
     const numbers = sortedArr.map(Number);
-    console.log(numbers);
     const arrayLength = sortedArr.length;
     const intervalSize = 5;
     let intervalStart = numbers[0];

@@ -4,13 +4,16 @@
     <span *ngIf="!showTable">Показать таблицу</span>
     <span *ngIf="showTable">Спрятать таблицу</span>
   </button>
+  <button (click)="setVariant1()" [color]="1 == activeVar ? 'warn':''" md-button>Вариант 1</button>
+  <button (click)="setVariant2()" [color]="2 == activeVar ? 'warn':''" md-button>Вариант 2</button>
+  <button (click)="setVariant3()" [color]="3 == activeVar ? 'warn':''" md-button>Вариант 3</button>
 </md-toolbar>
 <md-sidenav-container>
   <md-sidenav #sidenav mode="side" style="width: 100%; text-align: center;" [opened]="showTable">
     <app-table-numbers *ngIf="ryadType === 'discretnii'" [tableNumbers]="tableNumbers"></app-table-numbers>
     <app-table-numbers-interval *ngIf="ryadType === 'intervalnii'" [tableNumbers]="tableNumbers"></app-table-numbers-interval>
   </md-sidenav>
-  <md-expansion-panel [expanded]="true">
+  <md-expansion-panel [expanded]="false">
     <md-expansion-panel-header>
       <span style="font-weight: bold">Входные данные</span>
     </md-expansion-panel-header>

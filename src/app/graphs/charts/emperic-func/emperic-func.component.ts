@@ -21,13 +21,32 @@ export class EmpericFuncComponent implements OnInit, OnChanges {
   private yAxis: any;
   private graphs: Graphs;
   private svg;
+  private links: Array<{ src: Point, dst: Point }> = [];
 
   constructor(private tvimsService: TvimsService) { }
 
   ngOnInit(): void {
     this.graphs = this.tvimsService.Graphs;
+    this.links = this.graphs.empericFunc.map((el, i, arr) => {
+      const res = {
+        src: el,
+        dst: arr[i + 1]
+      };
+
+      return res;
+    });
+    this.links.pop();
     this.tvimsService.newNumbersSet.subscribe(numbers => {
       this.graphs = this.tvimsService.Graphs;
+      this.links = this.graphs.empericFunc.map((el, i, arr) => {
+        const res = {
+          src: el,
+          dst: arr[i + 1]
+        };
+
+        return res;
+      });
+      this.links.pop();
       if (this.width === 0) {
         this.createChart();
       }
@@ -55,7 +74,6 @@ export class EmpericFuncComponent implements OnInit, OnChanges {
       .attr('width', element.offsetWidth)
       .attr('height', element.offsetHeight);
 
-    // chart plot area
     this.chart = this.svg.append('g')
       .attr('class', 'paths')
       .attr('transform', `translate(${this.margin.left}, ${this.margin.top})`);
@@ -63,9 +81,9 @@ export class EmpericFuncComponent implements OnInit, OnChanges {
     // define X & Y domains
     const xDomain = [this.graphs.empericFunc[0].x, this.graphs.empericFunc[this.graphs.empericFunc.length - 1].x];
     const yDomain = [0, 1.2];
-
+    console.log(this.graphs.empericFunc[0].x);
     // create scales
-    this.xScale = d3.scaleLinear().domain(xDomain).range([0, this.width]);
+    this.xScale = d3.scaleLinear().domain(xDomain).range([0, this.width - 50]);
     this.yScale = d3.scaleLinear().domain(yDomain).range([this.height, 0]);
 
     // x & y axis
@@ -77,25 +95,53 @@ export class EmpericFuncComponent implements OnInit, OnChanges {
       .attr('class', 'axis axis-y')
       .attr('transform', `translate(${this.margin.left}, ${this.margin.top})`)
       .call(d3.axisLeft(this.yScale));
-
-    this.chart.append('path')
-      .attr('class', 'line')
-      .attr('d', this.graphs.empericFunc);
   }
 
   updateChart(): void {
-    this.chart.selectAll('dot')
-      .data(this.graphs.empericFunc)
-      .enter().append('circle')
-      .attr('r', 3.5)
-      .attr('cx', d => d.X)
-      .attr('cy', d => d.y);
-    // update scales & axis
+
     this.xScale.domain([this.graphs.empericFunc[0].x, this.graphs.empericFunc[this.graphs.empericFunc.length - 1].x]);
-    this.yScale.domain([0, d3.max(this.graphs.empericFunc, point => point.y)]);
-    this.colors.domain([0, this.graphs.empericFunc.length]);
+    this.yScale.domain([0, 1.2]);
     this.xAxis.transition().call(d3.axisBottom(this.xScale));
     this.yAxis.transition().call(d3.axisLeft(this.yScale));
-    // Add the scatterplot
+
+    const update = this.chart.selectAll('circle.nodes')
+      .data(this.graphs.empericFunc);
+    update.exit().remove();
+
+    this.chart.selectAll('circle.nodes').transition()
+      .attr('class', 'nodes')
+      .attr('cx', d => this.xScale(d.x))
+      .attr('cy', d => this.yScale(d.y))
+      .attr('r', d => 3)
+      .attr('fill', 'black');
+
+    update
+      .enter()
+      .append('svg:circle')
+      .attr('class', 'nodes')
+      .attr('cx', d => this.xScale(d.x))
+      .attr('cy', d => this.yScale(d.y))
+      .attr('r', d => 3)
+      .attr('fill', 'black');
+
+    const updateLinks = this.chart.selectAll('.line')
+      .data(this.links);
+    updateLinks.exit().remove();
+
+    this.chart.selectAll('line').transition()
+      .attr('x1', d => this.xScale(d.src.x))
+      .attr('y1', d => this.yScale(d.src.y))
+      .attr('x2', d => this.xScale(d.dst.x))
+      .attr('y2', d => this.yScale(d.dst.y))
+      .style('stroke', 'rgb(6,120,155)');
+
+    updateLinks
+      .enter()
+      .append('line')
+      .attr('x1', d => this.xScale(d.src.x))
+      .attr('y1', d => this.yScale(d.src.y))
+      .attr('x2', d => this.xScale(d.dst.x))
+      .attr('y2', d => this.yScale(d.dst.y))
+      .style('stroke', 'rgb(6,120,155)');
   }
 }

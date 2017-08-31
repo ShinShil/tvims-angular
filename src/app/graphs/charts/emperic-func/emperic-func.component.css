@@ -1,13 +1,6 @@
-path { 
-    stroke: steelblue;
-    stroke-width: 2;
-    fill: none;
+.d3-chart {
+    height: 400px;
 }
 
-.axis path,
-.axis line {
-    fill: none;
-    stroke: grey;
-    stroke-width: 1;
-    shape-rendering: crispEdges;
-}
+.d3-chart .axis path,		.d3-chart .axis line {		  stroke: #999;		}		
+.d3-chart .axis text {		  fill: #999;		}
