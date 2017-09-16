@@ -94,7 +94,6 @@ export class TvimsService {
 
   private setTableFromIntervalniiRyad(sortedArr: Array<string>): void {
     this.numbersTable = [];
-    console.log(sortedArr);
     const numbers = sortedArr.map(Number);
     const arrayLength = sortedArr.length;
     const intervalSize = this.intervalSize;
